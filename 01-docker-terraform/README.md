@@ -47,3 +47,4 @@ Result: 24.3.1
     vol-pgadmin_data:
         name: vol-pgadmin_data
 ```
+![Alt text](/01-docker-terraform/image/conect_postgres.png "Optional title")
