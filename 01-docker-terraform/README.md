@@ -117,3 +117,39 @@ GROUP BY
 ![Alt text](/01-docker-terraform/image/answer3_1.png "Optional title")
 
 
+## Question 4. Longest trip for each day
+
+```sql
+SELECT 
+    DATE(lpep_pickup_datetime) AS pickup_date
+    , MAX(trip_distance) AS max_trip_distance_in_day
+FROM public.green_taxi_trips
+WHERE 
+	lpep_pickup_datetime >= '2019-10-01' AND lpep_pickup_datetime < '2019-11-01'
+GROUP BY DATE(lpep_pickup_datetime)
+ORDER BY max_trip_distance_in_day DESC;
+
+```
+
+![Alt text](/01-docker-terraform/image/answer4.png "Optional title")
+
+## Question 5. Three biggest pickup zones
+
+```sql
+SELECT 
+    z."Zone" AS pickup_zone,
+    SUM(gtd.total_amount) AS total_revenue
+FROM public.green_taxi_trips AS gtd
+JOIN public.zones AS z ON gtd."PULocationID" = z."LocationID"
+WHERE DATE(gtd.lpep_pickup_datetime) = '2019-10-18'
+GROUP BY z."Zone"
+HAVING SUM(gtd.total_amount) > 13000
+ORDER BY total_revenue DESC
+LIMIT 3;
+
+```
+
+![Alt text](/01-docker-terraform/image/answer5.png "Optional title")
+
+## Question 6. Largest tip
+
